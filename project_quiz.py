@@ -1,5 +1,8 @@
+from flask import Flask, render_template, request, jsonify
 
-# questions for the quiz
+app = Flask(__name__)
+
+# Questions for the quiz
 quiz_questions = [
     {
         "question": "How do you handle challenges?",
@@ -131,21 +134,23 @@ def get_spirit_animal(answers):
 
     return result_animals
 
-# Get user input while displaying questions
-user_answers = []
-for q in quiz_questions:
-    print(q["question"])
-    for choice in q["choices"]:
-        print(choice)
-    
-    while True:
-        answer = input("Enter your answer (a, b, c, or d): ").strip().lower()
-        if answer in ["a", "b", "c", "d"]:
-            user_answers.append(answer)
-            break
-        else:
-            print("Invalid input. Please enter a, b, c, or d.")
+# Routes
+@app.route('/')
+def index():
+    return render_template('website_quiz_template.html', questions=quiz_questions)
 
-# Get and display the result
-result = get_spirit_animal(user_answers)
-print("Your spirit animal(s):", " ".join(result))
+@app.route('/results', methods=['POST'])
+def results():
+    data = request.get_json()
+    if not data or 'answers' not in data:
+        return jsonify({"error": "Invalid input"}), 400
+
+    spirit_animals_result = get_spirit_animal(data['answers'])
+
+    # Returning animal descriptions instead of just names
+    result_data = [spirit_animal[animal] for animal in spirit_animals_result]
+
+    return jsonify({"Your Spirit Animal": result_data})
+
+if __name__ == '__main__':
+    app.run(debug=True)
