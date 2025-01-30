@@ -118,11 +118,11 @@ def get_spirit_animal(answers):
     animal_scores = {"a": "LION", "b": "EAGLE", "c": "SNAKE", "d": "BADGER"}
     score_count = {"LION": 0, "EAGLE": 0, "SNAKE": 0, "BADGER": 0}
 
-    for answer in answers: 
+    for answer in answers: # counting the choices
         if answer in animal_scores:
             score_count[animal_scores[answer]] += 1
 
-    highest_score = max(score_count.values())
+    highest_score = max(score_count.values()) # finding the highest choice
     
     result_animals = []
     for animal, score in score_count.items():
@@ -130,3 +130,22 @@ def get_spirit_animal(answers):
             result_animals.append(animal)
 
     return result_animals
+
+# Get user input while displaying questions
+user_answers = []
+for q in quiz_questions:
+    print(q["question"])
+    for choice in q["choices"]:
+        print(choice)
+    
+    while True:
+        answer = input("Enter your answer (a, b, c, or d): ").strip().lower()
+        if answer in ["a", "b", "c", "d"]:
+            user_answers.append(answer)
+            break
+        else:
+            print("Invalid input. Please enter a, b, c, or d.")
+
+# Get and display the result
+result = get_spirit_animal(user_answers)
+print("Your spirit animal(s):", " ".join(result))
