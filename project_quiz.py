@@ -148,9 +148,9 @@ def results():
     spirit_animals_result = get_spirit_animal(data['answers'])
 
     # Returning animal descriptions instead of just names
-    result_data = [spirit_animal[animal] for animal in spirit_animals_result]
+    result_data = [next(item for item in spirit_animal if item["name"] == animal) for animal in spirit_animals_result]
 
-    return jsonify({"Your Spirit Animal": result_data})
+    return jsonify({"Wow! Your are A": result_data})
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spirit Animal Quiz</title>
+    <title>Spirit Animal Quiz!</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -76,7 +76,7 @@
         </div>
         <div id="results-section" class="results-section">
             <h2>Your Spirit Animal</h2>
-            <p id="spirit-animal-name"></p>
+            <p id="spirit-animal-name" style="font-weight: bold;"></p>
             <p id="spirit-animal-description"></p>
         </div>
     </div>
@@ -99,7 +99,7 @@
             questionText.textContent = currentQuestion.question;
             answerButtons.innerHTML = '';
 
-            currentQuestion.answers.forEach((answer, index) => {
+            currentQuestion.choices.forEach((answer, index) => { 
                 const button = document.createElement('button');
                 button.textContent = answer;
                 button.className = userAnswers[currentQuestionIndex] === index ? 'selected' : '';
@@ -114,10 +114,10 @@
             nextButton.style.display = userAnswers[currentQuestionIndex] !== null ? 'block' : 'none';
         }
 
-        function updateSelectedAnswer(selectedButton) {
+        function updateSelectedAnswer(selectedButton) { 
             Array.from(answerButtons.children).forEach(btn => btn.classList.remove('selected'));
             selectedButton.classList.add('selected');
-        }
+        } 
 
         nextButton.onclick = () => {
             if (userAnswers[currentQuestionIndex] === null) return;
@@ -132,17 +132,22 @@
         function showResults() {
             quizSection.style.display = 'none';
             resultsSection.style.display = 'block';
+
+            const choiceLetters = ["a", "b", "c", "d"];
+            const formattedAnswers = userAnswers.map(index => choiceLetters[index] || "a");
+
             fetch('/results', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ answers: userAnswers })
+                body: JSON.stringify({ answers: formattedAnswers })
             })
             .then(response => response.json())
             .then(data => {
-                spiritAnimalName.textContent = data.spiritAnimal.name;
-                spiritAnimalDescription.textContent = data.spiritAnimal.description;
+                const resultAnimal = data["Your Spirit Animal"][0];
+                spiritAnimalName.textContent = resultAnimal.name;
+                spiritAnimalDescription.textContent = resultAnimal.description;
             });
         }
 
