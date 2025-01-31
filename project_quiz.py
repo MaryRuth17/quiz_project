@@ -100,7 +100,40 @@ quiz_questions = [
             "c. The power to persuade and charm anyone.",
             "d. The gift to heal and comfort others."
         ]
-    }
+    },
+    {
+        "question": "BONUS QUESTION: miss mo?",
+        "choices": [
+            "hindi noh",
+            "omsim"
+        ]
+    },
+    {
+        "question": "wehhh",
+        "choices": [
+            "oo nga!",
+            "joke lang"
+        ]
+    },
+    {
+        "question": "pag miss mo, pwedeng balikan",
+        "choices": [
+            "okay",
+            "ayoko nga"
+        ]
+    },
+    {
+        "question": "Thank you for taking my test!",
+        "choices": [
+            "Thank you!"
+        ]
+    },
+    {
+        "question": "ARE YOU READY TO KNOW YOUR SPIRIT ANIMAL?",
+        "choices": [
+            "Yes!"
+        ]
+    },
 ]
 
 # the result animal in the choices
