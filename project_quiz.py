@@ -5,13 +5,20 @@ app = Flask(__name__)
 # Questions for the quiz
 quiz_questions = [
     {
+        "question": "Are you ready?",
+        "choices": [
+            "Yes", 
+            "No"
+        ]
+    },
+    {
         "question": "How do you handle challenges?",
         "choices": [
             "a. I face them head-on with courage.",
             "b. I analyze the situation and plan carefully.",
             "b. I look for creative ways to outmaneuver the problem.",
             "c. I stay persistent and work hard until I overcome it."
-            ]
+        ]
     },
     {
         "question": "What’s your biggest strength?",
@@ -118,10 +125,11 @@ spirit_animal = [
 
 # Function to determine your spirit animal
 def get_spirit_animal(answers):
+    # Proceed with normal logic if the first answer is "Yes"
     animal_scores = {"a": "LION", "b": "EAGLE", "c": "SNAKE", "d": "BADGER"}
     score_count = {"LION": 0, "EAGLE": 0, "SNAKE": 0, "BADGER": 0}
-
-    for answer in answers: # counting the choices
+    
+    for answer in answers[1:]: # counting the choices
         if answer in animal_scores:
             score_count[animal_scores[answer]] += 1
 
@@ -150,7 +158,7 @@ def results():
     # Returning animal descriptions instead of just names
     result_data = [next(item for item in spirit_animal if item["name"] == animal) for animal in spirit_animals_result]
 
-    return jsonify({"Wow! Your are A": result_data})
+    return jsonify({"Your Spirit Animal": result_data})
 
 if __name__ == '__main__':
     app.run(debug=True)

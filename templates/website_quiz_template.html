@@ -114,6 +114,21 @@
             nextButton.style.display = userAnswers[currentQuestionIndex] !== null ? 'block' : 'none';
         }
 
+        function handleAnswerSelection(index,selectedButton) {
+            if (currentQuestionIndex === 0) {
+                if (index === 1) {
+                    alert 
+                ("Why? :(, Are you sure?");
+                return;
+            }
+        }
+
+        userAnswers[currentQuestionIndex] = index;
+
+    updateSelectedAnswer(selectedButton);
+        nextButton.style.display 'block'; 
+    }
+
         function updateSelectedAnswer(selectedButton) { 
             Array.from(answerButtons.children).forEach(btn => btn.classList.remove('selected'));
             selectedButton.classList.add('selected');
