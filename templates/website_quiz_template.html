@@ -103,11 +103,7 @@
                 const button = document.createElement('button');
                 button.textContent = answer;
                 button.className = userAnswers[currentQuestionIndex] === index ? 'selected' : '';
-                button.onclick = () => {
-                    userAnswers[currentQuestionIndex] = index;
-                    updateSelectedAnswer(button);
-                    nextButton.style.display = 'block';
-                };
+                button.onclick = () => handleAnswerSelection(index, button);
                 answerButtons.appendChild(button);
             });
 
@@ -117,16 +113,14 @@
         function handleAnswerSelection(index,selectedButton) {
             if (currentQuestionIndex === 0) {
                 if (index === 1) {
-                    alert 
-                ("Why? :(, Are you sure?");
+                    alert("Why?, Are you sure?");
                 return;
             }
         }
 
         userAnswers[currentQuestionIndex] = index;
-
-    updateSelectedAnswer(selectedButton);
-        nextButton.style.display 'block'; 
+        updateSelectedAnswer(selectedButton);
+        nextButton.style.display = 'block'; 
     }
 
         function updateSelectedAnswer(selectedButton) { 
